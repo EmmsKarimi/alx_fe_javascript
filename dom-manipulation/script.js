@@ -12,7 +12,7 @@ let quotes = JSON.parse(localStorage.getItem("quotes")) || [
   const exportBtn = document.getElementById("exportBtn");
   const importFile = document.getElementById("importFile");
   const categoryFilter = document.getElementById("categoryFilter");
-  const notification = document.createElement("div");
+  const notification = document.getElementById("notification");
   notification.id = "notification";
   document.body.appendChild(notification);
   
