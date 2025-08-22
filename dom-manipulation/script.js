@@ -259,3 +259,22 @@ function populateCategories() {
     `;
   }
   
+  // ------------------ FILTER FUNCTION ------------------
+function filterQuote() {
+    const selectedCategory = document.getElementById("categoryFilter").value;
+  
+    // If "All" is selected, show a random quote from all
+    let filteredQuotes = selectedCategory === "All"
+      ? quotes
+      : quotes.filter(q => q.category === selectedCategory);
+  
+    if (filteredQuotes.length > 0) {
+      const randomIndex = Math.floor(Math.random() * filteredQuotes.length);
+      const quote = filteredQuotes[randomIndex];
+  
+      quoteDisplay.innerHTML = `<p>"${quote.text}"</p><small>Category: ${quote.category}</small>`;
+    } else {
+      quoteDisplay.innerHTML = `<p>No quotes found for this category.</p>`;
+    }
+  }
+  
