@@ -212,4 +212,50 @@ let quotes = JSON.parse(localStorage.getItem("quotes")) || [
   } else {
     showRandomQuote();
   }
+
+  // ------------------ CATEGORY FILTER ------------------
+
+// Populate category dropdown
+function populateCategories() {
+    const categoryFilter = document.getElementById("categoryFilter");
+    categoryFilter.innerHTML = ""; // clear old options
+  
+    // Extract unique categories from quotes
+    const categories = [...new Set(quotes.map(q => q.category))];
+  
+    // Default "All" option
+    const allOption = document.createElement("option");
+    allOption.value = "all";
+    allOption.textContent = "All Categories";
+    categoryFilter.appendChild(allOption);
+  
+    // Add each category as option
+    categories.forEach(category => {
+      const option = document.createElement("option");
+      option.value = category;
+      option.textContent = category;
+      categoryFilter.appendChild(option);
+    });
+  }
+  
+  // Show random quote (with optional category filter)
+  function showRandomQuote() {
+    const categoryFilter = document.getElementById("categoryFilter");
+    const selectedCategory = categoryFilter ? categoryFilter.value : "all";
+  
+    let filteredQuotes = quotes;
+    if (selectedCategory !== "all") {
+      filteredQuotes = quotes.filter(q => q.category === selectedCategory);
+    }
+  
+    const randomIndex = Math.floor(Math.random() * filteredQuotes.length);
+    const quote = filteredQuotes[randomIndex];
+  
+    sessionStorage.setItem("lastQuote", JSON.stringify(quote));
+  
+    quoteDisplay.innerHTML = `
+      <p>"${quote.text}"</p>
+      <small>Category: ${quote.category}</small>
+    `;
+  }
   
